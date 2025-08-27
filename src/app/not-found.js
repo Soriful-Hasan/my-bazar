@@ -51,10 +51,10 @@ export default function NotFound() {
             Oops! Page Not Found
           </h2>
           <p className="text-xl text-gray-600 mb-2">
-            The page you're looking for seems to have wandered off.
+            The page youre looking for seems to have wandered off.
           </p>
           <p className="text-lg text-gray-500">
-            Don't worry, let's get you back to shopping!
+            Dont worry, lets get you back to shopping!
           </p>
         </div>
 
