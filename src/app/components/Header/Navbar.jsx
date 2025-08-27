@@ -1,142 +1,144 @@
 "use client";
-
-import { useState } from "react";
-import { Menu, X, ShoppingBag, User, LogIn } from "lucide-react";
-
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+import React, { useState } from "react";
+import { Menu, X, User, ShoppingBag } from "lucide-react";
+import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
+export default function ResponsiveNavbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "All Items", href: "/all" },
+    ...(session ? [{ name: "Dashboard", href: "/dashboard" }] : []),
+  ];
+
+  
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <ShoppingBag className="h-8 w-8 text-blue-600 mr-2" />
-              <span className="text-xl font-bold text-gray-800">ShopHub</span>
-            </div>
+          <div className="flex-shrink-0">
+            <a
+              href="#"
+              className="font-['Pacifico'] text-2xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:from-purple-600 hover:to-indigo-600 transition-all duration-300"
+            >
+              ShopEase
+            </a>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                All Products
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                Categories
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                About
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                Contact
-              </a>
+          <div className="hidden lg:flex items-center space-x-8">
+            {/* Nav Links */}
+            <div className="flex items-center space-x-6">
+              {navLinks.map((link, index) => (
+                <Link
+                  key={link.key || index}
+                  href={link.href}
+                  className="text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium relative group"
+                >
+                  {link.name}
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:w-full transition-all duration-300"></div>
+                </Link>
+              ))}
             </div>
+
+            {/* Auth Buttons */}
+            {session ? (
+              <>
+                <img
+                  className="rounded-full w-10"
+                  src={session.user?.image}
+                  alt="profile"
+                  width={50}
+                />
+                <button
+                  onClick={() => signOut()}
+                  className=" text-red-600 transition-colors duration-300 font-medium px-4 py-2 rounded-xl bg-red-50 hover:cursor-pointer"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link
+                href={"/api/auth/signin"}
+                className=" text-indigo-600 transition-colors duration-300 font-medium px-4 py-2 rounded-xl bg-indigo-50"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
 
-          {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <button className="flex items-center text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200">
-              <LogIn className="h-4 w-4 mr-1" />
-              Login
-            </button>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center">
-              <User className="h-4 w-4 mr-1" />
-              Register
-            </button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
             <button
-              onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              onClick={toggleMobileMenu}
+              className="text-gray-700 hover:text-indigo-600 transition-colors duration-300 p-2 rounded-xl hover:bg-indigo-50"
             >
-              {isOpen ? (
-                <X className="block h-6 w-6" />
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="block h-6 w-6" />
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation Menu */}
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 text-base font-medium transition-colors duration-200"
+        <div
+          className={`lg:hidden transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen
+              ? "max-h-96 opacity-100 visible"
+              : "max-h-0 opacity-0 invisible overflow-hidden"
+          }`}
+        >
+          <div className="py-4 space-y-2 border-t border-gray-100 bg-white/80 backdrop-blur-sm rounded-b-2xl shadow-lg">
+            {/* Mobile Nav Links */}
+            {navLinks.map((link, index) => (
+              <Link
+                key={link.key || index}
+                href={link.href}
+                className="text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium relative group"
               >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 text-base font-medium transition-colors duration-200"
-              >
-                All Products
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 text-base font-medium transition-colors duration-200"
-              >
-                Categories
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 text-base font-medium transition-colors duration-200"
-              >
-                About
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-3 py-2 text-base font-medium transition-colors duration-200"
-              >
-                Contact
-              </a>
+                {link.name}
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:w-full transition-all duration-300"></div>
+              </Link>
+            ))}
 
-              {/* Mobile Auth Buttons */}
-              <div className="pt-4 pb-3 border-t border-gray-200">
-                <div className="flex flex-col space-y-3 px-3">
-                  <button className="flex items-center justify-center text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium transition-colors duration-200 border border-gray-300 rounded-md hover:bg-gray-50">
-                    <LogIn className="h-4 w-4 mr-2" />
-                    Login
-                  </button>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center justify-center">
-                    <User className="h-4 w-4 mr-2" />
-                    Register
-                  </button>
-                </div>
-              </div>
+            {/* Mobile Auth Buttons */}
+            <div className="px-2 pt-4 pb-2 space-y-3 border-t border-gray-100 mt-4">
+              <button
+                className="w-full text-left px-4 py-3 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-300 rounded-xl font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign In
+              </button>
+              <button
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium px-4 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl group relative overflow-hidden"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <span className="relative flex items-center justify-center">
+                  <User className="w-4 h-4 mr-2" />
+                  Register
+                </span>
+              </button>
             </div>
           </div>
-        )}
+        </div>
       </div>
+
+      {/* Mobile Menu Backdrop */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </nav>
   );
 }
