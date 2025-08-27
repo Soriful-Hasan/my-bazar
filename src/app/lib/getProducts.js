@@ -1,6 +1,6 @@
 export async function getProducts() {
   try {
-    const res = await fetch("http://localhost:3000/api/hotproducts", {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/hotproducts`, {
       cache: "no-store",
     });
     return await res.json();
