@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# My Bazar - E-commerce Platform
 
-## Getting Started
+A modern e-commerce web application built with **Next.js**, **Tailwind CSS**, and **MongoDB**, featuring Google OAuth authentication via **NextAuth**, serverless API routes, and deployed on **Vercel**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Folder Structure](#folder-structure)
+- [Setup & Installation](#setup--installation)
+- [Environment Variables](#environment-variables)
+- [API Routes](#api-routes)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+My Bazar is an e-commerce platform that allows users to browse products, view details, and authenticate via Google. It includes:
 
-## Learn More
+- Display of products fetched from **MongoDB**
+- Authentication using **Google OAuth**
+- Serverless **API routes** for product CRUD operations
+- Fully responsive UI with **Tailwind CSS**
+- Smooth deployment on **Vercel**
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Browse all products
+- View product details
+- Google login (OAuth)
+- Add new products via API
+- Responsive UI (mobile & desktop)
+- Relative API fetch for local & deployed environments
+- Error handling for API and MongoDB
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend:** Next.js (App Router), React, Tailwind CSS  
+- **Backend:** Node.js, MongoDB, NextAuth.js  
+- **Authentication:** Google OAuth  
+- **Deployment:** Vercel
+
+---
+
+## Folder Structure
+
