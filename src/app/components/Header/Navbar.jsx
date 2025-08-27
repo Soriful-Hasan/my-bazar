@@ -12,7 +12,7 @@ export default function ResponsiveNavbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "All Items", href: "/all" },
+    { name: "All Items", href: "/allProducts" },
     ...(session ? [{ name: "Dashboard", href: "/dashboard" }] : []),
   ];
 

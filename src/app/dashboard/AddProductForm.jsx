@@ -39,7 +39,7 @@ export default function AddProductForm() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      const res = await axios.post("api/products", data);
+      const res = await axios.post("api/hotproducts", data);
       setSubmitSuccess(true);
       reset();
       setImagePreview("");

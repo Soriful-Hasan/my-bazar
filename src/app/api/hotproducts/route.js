@@ -2,10 +2,10 @@ import clientPromise from "../../lib/mongodb.js";
 
 export async function POST(req) {
   try {
-    const body = await req.json(); // frontend থেকে আসা ডাটা
+    const body = await req.json();
 
     const client = await clientPromise;
-    const db = client.db("shopEaseDB"); // তোমার database নাম
+    const db = client.db("shopEaseDB");
     const collection = db.collection("products");
 
     const result = await collection.insertOne(body);
@@ -28,7 +28,7 @@ export async function GET() {
     const db = client.db("shopEaseDB");
     const collection = db.collection("products");
 
-    const products = await collection.find({}).limit(6).toArray();
+    const products = await collection.find({}).limit(8).toArray();
 
     return new Response(JSON.stringify(products), {
       status: 200,
