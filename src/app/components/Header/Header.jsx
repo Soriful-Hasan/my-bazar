@@ -3,7 +3,7 @@ import React from "react";
 
 export default function HeroSection() {
   return (
-    <section className="bg-white min-h-screen">
+    <section className="bg-white ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-12">
           {/* Left side - Content */}

@@ -1,10 +1,10 @@
-'use client'
-import { ArrowLeft, Package } from "lucide-react";
-import React from "react";
-import Home from "./page";
+// app/not-found.jsx
+"use client";
+
+import { Home, ArrowLeft, Package } from "lucide-react";
 import Link from "next/link";
 
-export default function error() {
+export default function NotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="max-w-4xl mx-auto text-center">
@@ -61,20 +61,20 @@ export default function error() {
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <Link
-            href={"/"}
+            href="/"
             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
             <Home size={20} />
             Back to Home
           </Link>
 
-          <Link
-            href={"/"}
+          <button
+            onClick={() => window.history.back()}
             className="flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 px-8 py-3 rounded-lg font-semibold transition-colors duration-200 border-2 border-gray-200 hover:border-gray-300"
           >
             <ArrowLeft size={20} />
             Go Back
-          </Link>
+          </button>
         </div>
 
         {/* Footer message */}
