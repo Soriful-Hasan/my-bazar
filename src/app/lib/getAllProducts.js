@@ -1,6 +1,7 @@
+const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
 export async function getAllProducts() {
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/allProductsData`, {
+    const res = await fetch(`${baseUrl}/api/allProductsData`, {
       cache: "no-store",
     });
     return await res.json();

@@ -33,7 +33,7 @@ export default function page() {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-10/12 mx-auto">
-        {productData.map((product) => (
+        {productData?.map((product) => (
           <Products key={product._id} product={product}></Products>
         ))}
       </div>
