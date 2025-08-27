@@ -5,7 +5,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 export default function ResponsiveNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -16,7 +16,6 @@ export default function ResponsiveNavbar() {
     ...(session ? [{ name: "Dashboard", href: "/dashboard" }] : []),
   ];
 
-  
   return (
     <nav className="bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4">
@@ -27,7 +26,7 @@ export default function ResponsiveNavbar() {
               href="#"
               className="font-['Pacifico'] text-2xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:from-purple-600 hover:to-indigo-600 transition-all duration-300"
             >
-              ShopEase
+              TechGadgets
             </a>
           </div>
 
@@ -48,28 +47,40 @@ export default function ResponsiveNavbar() {
             </div>
 
             {/* Auth Buttons */}
-            {session ? (
+
+            {status === "loading" ? (
               <>
-                <img
-                  className="rounded-full w-10"
-                  src={session.user?.image}
-                  alt="profile"
-                  width={50}
-                />
-                <button
-                  onClick={() => signOut()}
-                  className=" text-red-600 transition-colors duration-300 font-medium px-4 py-2 rounded-xl bg-red-50 hover:cursor-pointer"
-                >
-                  Sign Out
-                </button>
+                <span className="flex items-center gap-2">
+                  <span className="inline-block w-5 h-5 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></span>
+                  Loading...
+                </span>
               </>
             ) : (
-              <Link
-                href={"/api/auth/signin"}
-                className=" text-indigo-600 transition-colors duration-300 font-medium px-4 py-2 rounded-xl bg-indigo-50"
-              >
-                Sign In
-              </Link>
+              <>
+                {session ? (
+                  <>
+                    <img
+                      className="rounded-full w-10"
+                      src={session.user?.image}
+                      alt="profile"
+                      width={50}
+                    />
+                    <button
+                      onClick={() => signOut()}
+                      className=" text-red-600 transition-colors duration-300 font-medium px-4 py-2 rounded-xl bg-red-50 hover:cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    href={"/api/auth/signin"}
+                    className=" text-indigo-600 transition-colors duration-300 font-medium px-4 py-2 rounded-xl bg-indigo-50"
+                  >
+                    Sign In
+                  </Link>
+                )}
+              </>
             )}
           </div>
 

@@ -50,7 +50,7 @@ export default async function page({ params }) {
           </div>
         </nav>
 
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-md shadow-md overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Image Section */}
             <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 p-8 lg:p-12">
@@ -71,7 +71,7 @@ export default async function page({ params }) {
                 </div>
 
                 {/* Main Image */}
-                <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
+                <div className="relative overflow-hidden rounded-md shadow-md group">
                   <img
                     src={product.image}
                     alt={product.name}
